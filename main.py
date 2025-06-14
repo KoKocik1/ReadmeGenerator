@@ -1,13 +1,14 @@
 """Main entry point for the README generator."""
 
+import sys
+import traceback
+from pathlib import Path
+
+from config.settings import Settings
 from services.ai_service import AIService
 from services.file_service import FileService
 from services.git_service import GitService
 from services.project_service import ProjectService
-from config.settings import Settings
-import sys
-from pathlib import Path
-import traceback
 
 # Add project root to path for imports
 sys.path.insert(0, str(Path(__file__).parent))

@@ -1,8 +1,9 @@
 """Command execution utilities."""
 
 import os
-from typing import Optional
 import subprocess
+from typing import Optional
+
 from config.settings import Settings
 
 os.chdir(Settings().apps_directory)

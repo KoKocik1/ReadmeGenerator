@@ -2,9 +2,11 @@
 
 import json
 import re
-import tomli
 from pathlib import Path
-from typing import List, Optional, Dict, Any
+from typing import Any, Dict, List, Optional
+
+import tomli
+
 from config.settings import Settings
 from models.project import Project
 

@@ -2,11 +2,12 @@
 
 from pathlib import Path
 from typing import List
-from models.project import Project
-from services.git_service import GitService
-from services.file_service import FileService
-from services.ai_service import AIService
+
 from config.settings import Settings
+from models.project import Project
+from services.ai_service import AIService
+from services.file_service import FileService
+from services.git_service import GitService
 
 
 class ProjectService:

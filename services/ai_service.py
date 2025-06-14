@@ -1,7 +1,9 @@
 """AI service for generating README content."""
 
 import json
+
 import openai
+
 from config.prompts import Prompts
 
 

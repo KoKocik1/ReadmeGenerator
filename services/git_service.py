@@ -1,7 +1,8 @@
 """Git operations service."""
 
-from typing import List, Optional
 from pathlib import Path
+from typing import List, Optional
+
 from utils.command_runner import CommandRunner
 
 
