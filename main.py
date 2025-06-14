@@ -8,6 +8,7 @@ from config.settings import Settings
 import sys
 from pathlib import Path
 import traceback
+
 # Add project root to path for imports
 sys.path.insert(0, str(Path(__file__).parent))
 

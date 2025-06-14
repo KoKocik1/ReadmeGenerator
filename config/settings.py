@@ -33,8 +33,8 @@ class Settings:
 
     def _validate_environment(self) -> None:
         """Validate that all required environment variables are set."""
-        missing_vars = [
-            var for var in self.required_env_vars if not os.getenv(var)]
+        missing_vars = [var for var in self.required_env_vars if not os.getenv(var)]
         if missing_vars:
             raise ValueError(
-                f"Missing required environment variables: {', '.join(missing_vars)}")
+                f"Missing required environment variables: {', '.join(missing_vars)}"
+            )

@@ -36,14 +36,11 @@ class AIService:
                 input=[
                     {
                         "role": "system",
-                        "content": "You are a helpful assistant that generates README.md files. Always respond with valid JSON in the format {\"markdown\": \"your markdown content here\"}."
+                        "content": 'You are a helpful assistant that generates README.md files. Always respond with valid JSON in the format {"markdown": "your markdown content here"}.',
                     },
-                    {
-                        "role": "user",
-                        "content": prompt
-                    }
+                    {"role": "user", "content": prompt},
                 ],
-                temperature=0.7
+                temperature=0.7,
             )
 
             response_content = response.output_text

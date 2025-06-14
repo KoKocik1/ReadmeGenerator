@@ -36,7 +36,9 @@ class FileService:
 
         return results
 
-    def read_pyproject_toml(self, pyproject_toml_path: Path) -> Optional[Dict[str, Any]]:
+    def read_pyproject_toml(
+        self, pyproject_toml_path: Path
+    ) -> Optional[Dict[str, Any]]:
         """
         Read and parse pyproject.toml file.
 
@@ -47,7 +49,7 @@ class FileService:
             Parsed TOML data or None if error.
         """
         try:
-            with open(pyproject_toml_path, 'rb') as f:
+            with open(pyproject_toml_path, "rb") as f:
                 return tomli.load(f)
         except (tomli.TOMLDecodeError, IOError) as e:
             print(f"Error reading {pyproject_toml_path}: {e}")
@@ -69,7 +71,8 @@ class FileService:
         try:
             content = self.read_file(readme_path)
             match = re.search(
-                r'<!--\s*Last\s+updated:\s*([a-f0-9]+)\s*-->', content, re.IGNORECASE)
+                r"<!--\s*Last\s+updated:\s*([a-f0-9]+)\s*-->", content, re.IGNORECASE
+            )
             return match.group(1) if match else None
         except Exception as e:
             print(f"Error extracting base commit from {readme_path}: {e}")
@@ -85,7 +88,7 @@ class FileService:
         Returns:
             File content as string.
         """
-        with open(file_path, 'r', encoding='utf-8') as f:
+        with open(file_path, "r", encoding="utf-8") as f:
             return f.read()
 
     def write_file(self, file_path: Path, content: str) -> None:
@@ -96,10 +99,12 @@ class FileService:
             file_path: Path to file.
             content: Content to write.
         """
-        with open(file_path, 'w', encoding='utf-8') as f:
+        with open(file_path, "w", encoding="utf-8") as f:
             f.write(content)
 
-    def filter_project_files(self, project: Project, file_paths: List[str]) -> List[str]:
+    def filter_project_files(
+        self, project: Project, file_paths: List[str]
+    ) -> List[str]:
         """
         Filter files to include only those within project root and exclude README.md and poetry.lock.
 

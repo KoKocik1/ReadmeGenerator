@@ -12,7 +12,9 @@ from config.settings import Settings
 class ProjectService:
     """Service for processing projects."""
 
-    def __init__(self, git_service: GitService, file_service: FileService, ai_service: AIService):
+    def __init__(
+        self, git_service: GitService, file_service: FileService, ai_service: AIService
+    ):
         """
         Initialize project service.
 
@@ -32,7 +34,8 @@ class ProjectService:
 
         if not projects:
             print(
-                "No projects found. Make sure package.json files exist in the expected locations.")
+                "No projects found. Make sure package.json files exist in the expected locations."
+            )
             return
 
         current_commit = self.git_service.get_current_commit_sha()
@@ -53,15 +56,14 @@ class ProjectService:
 
         if not apps_dir.exists():
             print(
-                f"Warning: '{self.settings.apps_directory}' directory not found. Searching from current directory.")
+                f"Warning: '{self.settings.apps_directory}' directory not found. Searching from current directory."
+            )
             apps_dir = Path.cwd()
 
-        pyproject_toml_files = self.file_service.find_pyproject_toml_files(
-            apps_dir)
+        pyproject_toml_files = self.file_service.find_pyproject_toml_files(apps_dir)
 
         for pyproject_toml_path in pyproject_toml_files:
-            project = self._create_project_from_pyproject_toml(
-                pyproject_toml_path)
+            project = self._create_project_from_pyproject_toml(pyproject_toml_path)
             if project:
                 projects.append(project)
 
@@ -75,23 +77,24 @@ class ProjectService:
             project: Project to process.
             current_commit: Current commit SHA.
         """
-        print(
-            f'\nProcessing project "{project.name}" at "{project.root_path}" ...')
+        print(f'\nProcessing project "{project.name}" at "{project.root_path}" ...')
 
         # Extract base commit from existing README
         project.base_commit = self.file_service.extract_base_commit_from_readme(
-            project.readme_path)
+            project.readme_path
+        )
 
         # Get changed files
         changed_files = self.git_service.get_changed_files(
-            project.root_path, project.base_commit)
+            project.root_path, project.base_commit
+        )
         project.changed_files = self.file_service.filter_project_files(
-            project, changed_files)
+            project, changed_files
+        )
 
         # Skip if no changes
         if not project.has_changes:
-            print(
-                f'No changes detected for project "{project.name}". Skipping update.')
+            print(f'No changes detected for project "{project.name}". Skipping update.')
             return
 
         # Generate and save README
@@ -107,16 +110,15 @@ class ProjectService:
         Returns:
             Project instance or None if error.
         """
-        package_data = self.file_service.read_pyproject_toml(
-            pyproject_toml_path)
+        package_data = self.file_service.read_pyproject_toml(pyproject_toml_path)
 
-        if not package_data or 'project' not in package_data:
+        if not package_data or "project" not in package_data:
             return None
 
         return Project(
-            name=package_data['project']['name'],
+            name=package_data["project"]["name"],
             root_path=pyproject_toml_path.parent,
-            pyproject_toml_path=pyproject_toml_path
+            pyproject_toml_path=pyproject_toml_path,
         )
 
     def _generate_and_save_readme(self, project: Project, current_commit: str) -> None:
@@ -129,11 +131,11 @@ class ProjectService:
         """
         # Concatenate file contents
         file_content = self.file_service.concatenate_file_contents(
-            project.changed_files)
+            project.changed_files
+        )
 
         # Generate README content
-        markdown_content = self.ai_service.generate_readme_content(
-            file_content)
+        markdown_content = self.ai_service.generate_readme_content(file_content)
 
         if not markdown_content:
             print(f'Error: No content generated for project "{project.name}"')

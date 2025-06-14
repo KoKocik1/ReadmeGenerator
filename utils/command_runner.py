@@ -1,4 +1,5 @@
 """Command execution utilities."""
+
 import os
 from typing import Optional
 import subprocess
@@ -28,12 +29,7 @@ class CommandRunner:
 
         try:
             result = subprocess.run(
-                command,
-                shell=True,
-                capture_output=True,
-                text=True,
-                check=True,
-                cwd=cwd
+                command, shell=True, capture_output=True, text=True, check=True, cwd=cwd
             )
             return result.stdout.strip()
         except subprocess.CalledProcessError as e:

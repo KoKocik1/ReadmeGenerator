@@ -16,7 +16,9 @@ class GitService:
         """Get the current commit SHA."""
         return self.command_runner.run("git rev-parse HEAD")
 
-    def get_changed_files(self, project_root: Path, base_commit: Optional[str] = None) -> List[str]:
+    def get_changed_files(
+        self, project_root: Path, base_commit: Optional[str] = None
+    ) -> List[str]:
         """
         Get list of changed files for a project.
 
@@ -40,7 +42,8 @@ class GitService:
             return self._parse_file_list(output)
         except RuntimeError:
             print(
-                f"Error getting diff for {project_root}. Falling back to all tracked files.")
+                f"Error getting diff for {project_root}. Falling back to all tracked files."
+            )
             return self._get_all_tracked_files(project_root)
 
     def _get_all_tracked_files(self, project_root: Path) -> List[str]:
@@ -53,4 +56,4 @@ class GitService:
         """Parse command output into list of file paths."""
         if not output:
             return []
-        return [f.strip() for f in output.split('\n') if f.strip()]
+        return [f.strip() for f in output.split("\n") if f.strip()]

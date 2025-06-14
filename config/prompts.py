@@ -7,7 +7,7 @@ class Prompts:
     @staticmethod
     def get_readme_generation_prompt() -> str:
         """Get the main README generation prompt."""
-        return '''
+        return """
 # Introduction
 You are a README.md generator. Your goal is to generate a README.md file for a Python project based on the codebase.
 
@@ -50,4 +50,4 @@ Return your answer as a JSON object in the format { "markdown": "Your markdown h
 
 E.g.
 { "markdown": "# My Project\\n\\nThis is a description of my project." }
-'''
+"""
