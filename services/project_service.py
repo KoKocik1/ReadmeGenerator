@@ -50,7 +50,6 @@ class ProjectService:
         projects = []
 
         apps_dir = Path.cwd() / self.settings.apps_directory
-        # apps_dir = Path(self.settings.apps_directory)
 
         if not apps_dir.exists():
             print(
