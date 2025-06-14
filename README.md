@@ -1,23 +1,29 @@
 # ReadmeGenerator
 
-This is a Python project designed to automate the generation of README.md files for other Python projects based on their codebase and project structure. The application parses project files, interprets their content, and generates comprehensive README documentation including usage guides, installation instructions, and API details if applicable.
+Generate clear, well-structured README.md files for Python projects.
 
 ## Table of Contents
 - [Overview](#overview)
+- [Getting Started](#getting-started)
 - [Usage](#usage)
+- [Configuration](#configuration)
 
 ## Overview
-The ReadmeGenerator project simplifies documentation processes for developers by automatically creating detailed README files. It leverages natural language processing to interpret code and comments within a project, structuring a user-friendly README that includes necessary commands, descriptions, and usage examples. The architecture mainly consists of services handling file operations, AI-based content generation, and Git integration to manage project versions and changes.
+This project provides a tool to automatically generate README.md files for Python projects, ensuring best practices and consistent formatting are followed.
+
+## Getting Started
+To get started with this tool, clone the repository and install dependencies using:
+```bash
+poetry install
+```
 
 ## Usage
-To start the project locally, follow these steps:
-1. Ensure you have Poetry installed on your system.
-2. From the project root directory, run:
-   ```bash
-   poetry install
-   poetry run python main.py
-   ```
+Run the application with the following command:
+```bash
+poetry run python main.py
+```
 
-This will install all dependencies and start the application, which will then process the Python projects found within the specified directory.
+## Configuration
+Ensure your `.env` file is set up correctly with the necessary API keys and paths as shown in the provided `.env.example`.
 
-<!-- Last updated: 8824b256bc46122daaacee7a26137afd3f602adf -->
+<!-- Last updated: 50b2042fee3393e03d9f771f985cbb01b18e19e6 -->
