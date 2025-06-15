@@ -2,6 +2,7 @@
 
 import json
 import re
+import base64
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -139,6 +140,8 @@ class FileService:
     def concatenate_file_contents(self, file_paths: List[str]) -> str:
         """
         Concatenate file paths and their contents.
+        For text files, reads the content directly.
+        For image files, encodes them in base64.
 
         Args:
             file_paths: List of file paths.
@@ -147,6 +150,7 @@ class FileService:
             Concatenated content string.
         """
         content = ""
+        image_extensions = {'.png', '.jpg', '.jpeg', '.gif', '.bmp', '.webp'}
 
         for file_path in file_paths:
             path_obj = Path(file_path)
@@ -157,8 +161,16 @@ class FileService:
             content += f"{file_path}\n"
 
             try:
-                file_content = self.read_file(path_obj)
-                content += f"{file_content}\n\n"
+                if path_obj.suffix.lower() in image_extensions:
+                    # Handle image files
+                    with open(path_obj, 'rb') as img_file:
+                        img_data = base64.b64encode(
+                            img_file.read()).decode('utf-8')
+                        content += f"[IMAGE_BASE64:{path_obj.suffix}]\n{img_data}\n\n"
+                else:
+                    # Handle text files
+                    file_content = self.read_file(path_obj)
+                    content += f"{file_content}\n\n"
             except Exception as e:
                 print(f"Error reading {file_path}: {e}")
                 continue
